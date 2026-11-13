@@ -46,9 +46,10 @@ Run the OpenSEO application on Vercel (Node.js runtime) with Neon PostgreSQL. Pr
 
 ### 3. Object storage
 
-- Replace R2 operations with a Vercel-compatible object store adapter.
-- Preserve JSON content type, prefix deletion, pagination, and object-key semantics.
-- Required configuration and provider selection must be documented before enabling audit payload writes.
+- Neon Object Storage is already enabled on the dedicated `open-seo` database branch and exposes an S3-compatible endpoint in the same AWS Singapore region.
+- Evaluate Neon Object Storage as the first-choice R2 replacement to avoid introducing another storage vendor; confirm current plan pricing/limits before creating credentials or storing production objects.
+- Implement an S3-compatible adapter for get, put, paginated list, and prefix deletion; preserve JSON content type and object-key semantics.
+- Keep storage credentials server-only and use least-privilege access.
 
 ### 4. Durable background workflows
 
@@ -75,6 +76,7 @@ Run the OpenSEO application on Vercel (Node.js runtime) with Neon PostgreSQL. Pr
 
 - Vercel project `open-seo` exists.
 - Neon project `open-seo`, database `openseo`, is connected through encrypted `POSTGRES_DATABASE_URL` in production, preview, and development.
+- Neon Object Storage is enabled on the database's default branch; its S3-compatible endpoint is available for implementation evaluation.
 - Existing PostgreSQL migration history is present in the repository.
 - No application migration code has been committed yet.
 - The selected migration branch currently matches `main`.
